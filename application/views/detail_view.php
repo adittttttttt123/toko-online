@@ -64,9 +64,14 @@
             <div class="col-md-6 mb-4">
                 <div class="bg-white p-3 rounded-4 border border-light shadow-sm text-center">
                     <?php 
-                        $img_src = base_url('assets/images/' . $product['gambar']);
-                        if (empty($product['gambar']) || !file_exists(FCPATH . 'assets/images/' . $product['gambar'])) {
+                        $img_src = $product['gambar'];
+                        if (empty($product['gambar'])) {
                             $img_src = base_url('assets/images/default_shoe.svg');
+                        } elseif (!preg_match('/^https?:\/\//', $product['gambar'])) {
+                            $img_src = base_url('assets/images/' . $product['gambar']);
+                            if (!file_exists(FCPATH . 'assets/images/' . $product['gambar'])) {
+                                $img_src = base_url('assets/images/default_shoe.svg');
+                            }
                         }
                     ?>
                     <img src="<?= $img_src ?>" 

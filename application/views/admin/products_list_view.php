@@ -100,12 +100,17 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center gap-3">
-                                                <?php 
-                                                    $img_src = base_url('assets/images/' . $prod['gambar']);
-                                                    if (empty($prod['gambar']) || !file_exists(FCPATH . 'assets/images/' . $prod['gambar'])) {
-                                                        $img_src = base_url('assets/images/default_shoe.svg');
-                                                    }
-                                                ?>
+                                                 <?php 
+                                                     $img_src = $prod['gambar'];
+                                                     if (empty($prod['gambar'])) {
+                                                         $img_src = base_url('assets/images/default_shoe.svg');
+                                                     } elseif (!preg_match('/^https?:\/\//', $prod['gambar'])) {
+                                                         $img_src = base_url('assets/images/' . $prod['gambar']);
+                                                         if (!file_exists(FCPATH . 'assets/images/' . $prod['gambar'])) {
+                                                             $img_src = base_url('assets/images/default_shoe.svg');
+                                                         }
+                                                     }
+                                                 ?>
                                                 <img src="<?= $img_src ?>" 
                                                      alt="<?= $prod['nama_produk'] ?>" 
                                                      class="rounded border" 

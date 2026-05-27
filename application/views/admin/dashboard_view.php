@@ -124,12 +124,17 @@
                                             <tr>
                                                 <td>
                                                     <div class="d-flex align-items-center gap-2">
-                                                        <?php 
-                                                            $img_src = base_url('assets/images/' . $top['gambar']);
-                                                            if (empty($top['gambar']) || !file_exists(FCPATH . 'assets/images/' . $top['gambar'])) {
-                                                                $img_src = base_url('assets/images/default_shoe.svg');
-                                                            }
-                                                        ?>
+                                                         <?php 
+                                                             $img_src = $top['gambar'];
+                                                             if (empty($top['gambar'])) {
+                                                                 $img_src = base_url('assets/images/default_shoe.svg');
+                                                             } elseif (!preg_match('/^https?:\/\//', $top['gambar'])) {
+                                                                 $img_src = base_url('assets/images/' . $top['gambar']);
+                                                                 if (!file_exists(FCPATH . 'assets/images/' . $top['gambar'])) {
+                                                                     $img_src = base_url('assets/images/default_shoe.svg');
+                                                                 }
+                                                             }
+                                                         ?>
                                                         <img src="<?= $img_src ?>" alt="" class="rounded border" style="width: 40px; height: 40px; object-fit: cover;">
                                                         <span class="fw-bold"><?= $top['nama_produk'] ?></span>
                                                     </div>

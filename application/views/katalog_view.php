@@ -174,9 +174,14 @@
                                 <div class="product-card">
                                     <div class="product-img-wrapper">
                                          <?php 
-                                             $img_src = base_url('assets/images/' . $prod['gambar']);
-                                             if (empty($prod['gambar']) || !file_exists(FCPATH . 'assets/images/' . $prod['gambar'])) {
+                                             $img_src = $prod['gambar'];
+                                             if (empty($prod['gambar'])) {
                                                  $img_src = base_url('assets/images/default_shoe.svg');
+                                             } elseif (!preg_match('/^https?:\/\//', $prod['gambar'])) {
+                                                 $img_src = base_url('assets/images/' . $prod['gambar']);
+                                                 if (!file_exists(FCPATH . 'assets/images/' . $prod['gambar'])) {
+                                                     $img_src = base_url('assets/images/default_shoe.svg');
+                                                 }
                                              }
                                          ?>
                                          <img src="<?= $img_src ?>" class="product-img" alt="<?= $prod['nama_produk'] ?>">

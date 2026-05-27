@@ -75,12 +75,17 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center gap-3">
-                                                <?php 
-                                                    $img_src = base_url('assets/images/' . $item['options']['Image']);
-                                                    if (empty($item['options']['Image']) || !file_exists(FCPATH . 'assets/images/' . $item['options']['Image'])) {
-                                                        $img_src = base_url('assets/images/default_shoe.svg');
-                                                    }
-                                                ?>
+                                                 <?php 
+                                                     $img_src = $item['options']['Image'];
+                                                     if (empty($item['options']['Image'])) {
+                                                         $img_src = base_url('assets/images/default_shoe.svg');
+                                                     } elseif (!preg_match('/^https?:\/\//', $item['options']['Image'])) {
+                                                         $img_src = base_url('assets/images/' . $item['options']['Image']);
+                                                         if (!file_exists(FCPATH . 'assets/images/' . $item['options']['Image'])) {
+                                                             $img_src = base_url('assets/images/default_shoe.svg');
+                                                         }
+                                                     }
+                                                 ?>
                                                 <img src="<?= $img_src ?>" 
                                                      alt="<?= $item['name'] ?>" 
                                                      class="rounded-3 border" 

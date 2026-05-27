@@ -132,12 +132,17 @@
                         <div class="mb-4" style="max-height: 250px; overflow-y: auto;">
                             <?php foreach ($cart_items as $item): ?>
                                 <div class="d-flex align-items-center gap-3 border-bottom pb-3 mb-3">
-                                    <?php 
-                                        $img_src = base_url('assets/images/' . $item['options']['Image']);
-                                        if (empty($item['options']['Image']) || !file_exists(FCPATH . 'assets/images/' . $item['options']['Image'])) {
-                                            $img_src = base_url('assets/images/default_shoe.svg');
-                                        }
-                                    ?>
+                                     <?php 
+                                         $img_src = $item['options']['Image'];
+                                         if (empty($item['options']['Image'])) {
+                                             $img_src = base_url('assets/images/default_shoe.svg');
+                                         } elseif (!preg_match('/^https?:\/\//', $item['options']['Image'])) {
+                                             $img_src = base_url('assets/images/' . $item['options']['Image']);
+                                             if (!file_exists(FCPATH . 'assets/images/' . $item['options']['Image'])) {
+                                                 $img_src = base_url('assets/images/default_shoe.svg');
+                                             }
+                                         }
+                                     ?>
                                     <img src="<?= $img_src ?>" 
                                          alt="<?= $item['name'] ?>" 
                                          class="rounded-3 border" 
