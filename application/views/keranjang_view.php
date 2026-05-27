@@ -75,7 +75,13 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center gap-3">
-                                                <img src="<?= base_url('assets/images/' . $item['options']['Image']) ?>" 
+                                                <?php 
+                                                    $img_src = base_url('assets/images/' . $item['options']['Image']);
+                                                    if (empty($item['options']['Image']) || !file_exists(FCPATH . 'assets/images/' . $item['options']['Image'])) {
+                                                        $img_src = base_url('assets/images/default_shoe.svg');
+                                                    }
+                                                ?>
+                                                <img src="<?= $img_src ?>" 
                                                      alt="<?= $item['name'] ?>" 
                                                      class="rounded-3 border" 
                                                      style="width: 70px; height: 70px; object-fit: cover;">

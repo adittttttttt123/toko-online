@@ -84,7 +84,13 @@
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center gap-2">
-                                        <img src="<?= base_url('assets/images/' . $item['gambar']) ?>" alt="" class="rounded border" style="width: 40px; height: 40px; object-fit: cover;">
+                                        <?php 
+                                            $img_src = base_url('assets/images/' . $item['gambar']);
+                                            if (empty($item['gambar']) || !file_exists(FCPATH . 'assets/images/' . $item['gambar'])) {
+                                                $img_src = base_url('assets/images/default_shoe.svg');
+                                            }
+                                        ?>
+                                        <img src="<?= $img_src ?>" alt="" class="rounded border" style="width: 40px; height: 40px; object-fit: cover;">
                                         <span class="fw-semibold" style="font-size: 0.9rem;"><?= $item['nama_produk'] ?></span>
                                     </div>
                                 </td>

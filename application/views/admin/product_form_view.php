@@ -122,7 +122,13 @@
                                 
                                 <?php if (isset($product)): ?>
                                     <div class="mt-3 p-2 border rounded-3 bg-light text-center" style="max-width: 150px;">
-                                        <img src="<?= base_url('assets/images/' . $product['gambar']) ?>" alt="" class="img-fluid rounded" style="max-height: 100px;">
+                                        <?php 
+                                            $img_src = base_url('assets/images/' . $product['gambar']);
+                                            if (empty($product['gambar']) || !file_exists(FCPATH . 'assets/images/' . $product['gambar'])) {
+                                                $img_src = base_url('assets/images/default_shoe.svg');
+                                            }
+                                        ?>
+                                        <img src="<?= $img_src ?>" alt="" class="img-fluid rounded" style="max-height: 100px;">
                                         <small class="text-muted d-block mt-1">Gambar Saat Ini</small>
                                     </div>
                                 <?php endif; ?>

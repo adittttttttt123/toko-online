@@ -132,7 +132,13 @@
                         <div class="mb-4" style="max-height: 250px; overflow-y: auto;">
                             <?php foreach ($cart_items as $item): ?>
                                 <div class="d-flex align-items-center gap-3 border-bottom pb-3 mb-3">
-                                    <img src="<?= base_url('assets/images/' . $item['options']['Image']) ?>" 
+                                    <?php 
+                                        $img_src = base_url('assets/images/' . $item['options']['Image']);
+                                        if (empty($item['options']['Image']) || !file_exists(FCPATH . 'assets/images/' . $item['options']['Image'])) {
+                                            $img_src = base_url('assets/images/default_shoe.svg');
+                                        }
+                                    ?>
+                                    <img src="<?= $img_src ?>" 
                                          alt="<?= $item['name'] ?>" 
                                          class="rounded-3 border" 
                                          style="width: 55px; height: 55px; object-fit: cover;">
@@ -250,14 +256,24 @@
         // 2. City Selected -> Enable Courier
         citySelect.addEventListener('change', function() {
             const val = this.value;
-            courierSelect.value = '';
             serviceSelect.innerHTML = '<option value="">-- Pilih Kurir Dulu --</option>';
-            
-            courierSelect.disabled = !val;
             serviceSelect.disabled = true;
             submitBtn.disabled = true;
             shippingDisplay.innerText = 'Pilih Layanan';
             grandDisplay.innerText = formatRupiah(subtotal);
+
+            if (val) {
+                courierSelect.innerHTML = `
+                    <option value="">-- Pilih Kurir --</option>
+                    <option value="JNE">JNE Express</option>
+                    <option value="J&T">J&T Express</option>
+                    <option value="POS">POS Indonesia</option>
+                `;
+                courierSelect.disabled = false;
+            } else {
+                courierSelect.innerHTML = '<option value="">-- Pilih Kota Dulu --</option>';
+                courierSelect.disabled = true;
+            }
         });
 
         // 3. Courier Selected -> Fetch Costs

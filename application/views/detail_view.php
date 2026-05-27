@@ -63,7 +63,13 @@
             <!-- Left: Product Image -->
             <div class="col-md-6 mb-4">
                 <div class="bg-white p-3 rounded-4 border border-light shadow-sm text-center">
-                    <img src="<?= base_url('assets/images/' . $product['gambar']) ?>" 
+                    <?php 
+                        $img_src = base_url('assets/images/' . $product['gambar']);
+                        if (empty($product['gambar']) || !file_exists(FCPATH . 'assets/images/' . $product['gambar'])) {
+                            $img_src = base_url('assets/images/default_shoe.svg');
+                        }
+                    ?>
+                    <img src="<?= $img_src ?>" 
                          class="img-fluid rounded-3" 
                          alt="<?= $product['nama_produk'] ?>"
                          style="max-height: 480px; object-fit: cover;">
